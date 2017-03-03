@@ -28,7 +28,7 @@
    </form>
   </div>
   <script>
-    function handleIdChange(){
+   function handleIdChange(){
        var selVal = $('#eid option:selected').val();
        var selNumber = parseInt(selVal);
        
@@ -37,18 +37,38 @@
            $('#bodyDiv').css('visibility','hidden');
        }
        else{
-         
+         //make a server request 
+         var root = 'https://jsonplaceholder.typicode.com';
+         $.ajax({
+          url: root + '/posts/' + selNumber,
+          method: 'GET'
+         }).then(function(data) {
+          console.log(data.id);
+          console.log(data.title);
+          console.log(data.body);
+        
          $('#titleDiv').css('visibility','visible');
          
+         //reset the title value
+         $('#etitle').empty();
+         $('#etitle').append($('<option>', { value : data.title })
+          .text(data.title)); 
+
          if((selNumber % 2) == 0){
              $('#bodyDiv').css('visibility','visible');
+             
+             //reset body value
+             //$('#ebody').empty();
+             $('#ebody').val(data.body);
+             $('#ebody').prop('disabled',true);
              
          }
          else{
             $('#bodyDiv').css('visibility','hidden');
          }
+        }); //of ajax
        } //of else
-   } //of handleChange
+   } //of handleIdChange
 </script>
 
 </body>       
