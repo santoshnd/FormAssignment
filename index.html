@@ -2,25 +2,54 @@
 <html>
 <head>
   <title>Test Assignment 1</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <head>
 
 <body>
   <div id="mainDiv" align="center">  
    <form>
       <pre> 
-      Id    :<select id="eid" style="width:580px;">
-                 <option>Select an Id</option>
-                 <option>1</option>
-                 <option>2</option>
-                 <option>3</option>
-                 <option>4</option>
+        Id    :<select id="eid" onchange="handleIdChange()"  style="width:580px;">
+                 <option value="prompt">Select an Id</option>
+                 <option value="1">1</option>
+                 <option value="2">2</option>
+                 <option value="3">3</option>
+                 <option value="4">4</option>
              </select>
              <br>
-      Title :<select  id= "etitle" style="width: 580px;"> </select>
+      <div id="titleDiv" style="visibility: hidden;">       
+        Title :<select  id= "etitle" style="width: 580px; "> </select>
+      </div>
       <br>
-      Body  :<textarea id="ebody"  cols="80" rows="5" style="vertical-align: top;"></textarea>
+      <div id="bodyDiv" style="visibility: hidden;">
+        Body  :<textarea id="ebody"  cols="80" rows="5" style="vertical-align: top;"></textarea>
+      </div>
       </pre>
    </form>
   </div>
+  <script>
+    function handleIdChange(){
+       var selVal = $('#eid option:selected').val();
+       var selNumber = parseInt(selVal);
+       
+       if(isNaN(selNumber)){
+           $('#titleDiv').css('visibility','hidden');
+           $('#bodyDiv').css('visibility','hidden');
+       }
+       else{
+         
+         $('#titleDiv').css('visibility','visible');
+         
+         if((selNumber % 2) == 0){
+             $('#bodyDiv').css('visibility','visible');
+             
+         }
+         else{
+            $('#bodyDiv').css('visibility','hidden');
+         }
+       } //of else
+   } //of handleChange
+</script>
+
 </body>       
 </html
